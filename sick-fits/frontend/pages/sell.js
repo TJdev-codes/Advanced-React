@@ -1,7 +1,3 @@
-export default function OrderPage() {
-  return (
-    <div>
-      <p>Hello!</p>
-    </div>
-  );
+export default function SellPage() {
+  return <p>Hello I am the Sell Page!</p>;
 }
