@@ -6,6 +6,7 @@ import {
   statelessSessions,
 } from '@keystone-next/keystone/session';
 import { User } from './schemas/User';
+import { Product } from './schemas/Product';
 
 const databaseURL =
   process.env.DATABASE_URL || 'mongodb://localhost/keystone-sick-fits-tutorial';
@@ -27,7 +28,7 @@ const { withAuth } = createAuth({
 
 export default withAuth(
   config({
-    // @ts-ignore
+    // "at" ts-ignore
     server: {
       cors: {
         origin: [process.env.FRONTEND_URL],
@@ -42,16 +43,17 @@ export default withAuth(
     lists: createSchema({
       // schema items go in here
       User,
+      Product,
     }),
     ui: {
       // show the ui only for people who pass this test
-      isAccessAllowed: ({ session }) => {
-        console.log(session);
-        return !!session?.data;
-      },
+      isAccessAllowed: ({ session }) =>
+        // console.log(session);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        !!session?.data,
     },
     session: withItemData(statelessSessions(sessionConfig), {
-        // GraphQL Query
+      // GraphQL Query
       User: 'id',
     }),
   })
